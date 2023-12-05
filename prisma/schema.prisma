@@ -8,25 +8,182 @@ generator client {
 }
 
 model User {
-  id    String @id @default(cuid())
+  id Int @id @default(autoincrement())
+  name String @unique
+  firstName	String? 
+  lastName String?
   email String @unique
+  password Password?
+  notes    Note[]
+  phone		String?
+  profilePic	String?	// shown on the landing page
+  bio			String?	// used as the big title for the landing page
+  intro		String?
+  pages Page[] @relation("UserPages")
+  chatSimple	String?				// an HTML <script> tag from chatsimple.ai 
+
+  skills	UserSkill[]
+  websites UserWebsite[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  password Password?
-  notes    Note[]
 }
 
 model Password {
   hash String
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId String @unique
+  userId Int @unique
+}
+
+model Skill { // a predefined set of skills
+  skillName String	@id
+  description	String?
+  type String // tech skill’ or ‘soft skill’
+  users UserSkill[] @relation("UserSkills")
+}
+
+model UserSkill {
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId Int
+  skill Skill	@relation("UserSkills", fields: [skillName], references: [skillName])
+  skillName String
+  level		String?				// ‘beginner’, ‘intermediate’, ‘advanced’, or ‘expert’
+  @@id([userId, skillName])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Website {
+  type 		String		@id		// can be ‘linkedin’, ‘github’, ‘website’, etc.
+  userWebsites UserWebsite[] @relation("UserWebsites")
+}
+
+model UserWebsite {
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId Int
+  website	Website @relation("UserWebsites", fields: [userWebsiteType], references: [type])	
+  userWebsiteType String
+  url			String?
+  @@id([userId, userWebsiteType])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Page {
+  id	Int	@id	 @default(autoincrement())
+  user User @relation("UserPages", fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId	Int	
+  order		Int				// assigned based on user’s ordering of pages
+  navTitle	String @default("Untitled")	// its “name” on the timeline arrow, may be different than title
+  title		String @default("Untitled")
+  bgImage		String?
+  tldr			String?
+  blocks	Block[] @relation("PageBlocks")
+  pageBlocks 	String @default("[]") // a stringified json array of topmost level block ids
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BlockType { // a predefined set of block types
+  type		String	@id
+  description		String?
+  blocks Block[] @relation("BlockType")
+}
+
+model Block {
+  id	String  @id @default(uuid())// not Int, to avoid possible Int overflow
+  page  Page  @relation("PageBlocks", fields: [pageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  pageId 		Int
+  order		Int
+  type	BlockType @relation("BlockType", fields:[blockType], references: [type])
+  blockType String
+  properties  String	@default("{}") // a stringified json object
+  content Block[] @relation("NestedBlocks")
+  parent	Block?	@relation("NestedBlocks", fields: [parentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  parentId	String?
+}
+
+// If a user bold, underline, italicize, embed a link, etc, to a specific part of the current block.
+// we'll break that block into child blocks. 
+model H1 { 	
+  text  String?
+  align String @default("left") // or 'center', 'right', or 'justify'
+  embeddedUrl String
+  @@ignore	
+}
+
+model H2 { 
+  text  String?
+  align String @default("left")
+  embeddedUrl String
+  @@ignore	
+}
+
+model H3 {
+  text  String?	
+  align String @default("left")
+  embeddedUrl String
+  @@ignore
+} 
+
+model Text {
+  text  String?
+  align String @default("left")
+  embeddedUrl String	
+  @@ignore
+}
+
+model BulletedList {
+  text  String?	
+  align String @default("left")
+  @@ignore
+}
+
+model NumberedList {
+  text  String?	
+  align String @default("left")
+  @@ignore
+}
+
+model Toggle {
+  text  String?	
+  align String @default("left")
+  embeddedUrl String
+  @@ignore
+}
+
+model Paragraph {
+  align String @default("left")
+  images		String?		// a json array
+  @@ignore
+}
+
+model SkillsTable {	// will be auto-filled based on the User’s skills, but the user can choose to hide/display specific skills in this block
+  techSkills	String  @default("[]")	// a stringified json array of Skill ids	
+  softSkills	String		 @default("[]")	// a stringified json array of Skill ids	
+  @@ignore
+}
+
+model ContactBox {	 // This element includes the user’s phone, social media, websites, and optionally a form to email the user. 
+  headline		String?				// sth like ‘Contact me’ or ‘Let’s connect’
+  image		String?		// default = the url to the profilePic
+  websites	  String	@default("[]")	// a stringified json array of UserWebsite ids
+  hasEmailForm	Boolean	@default(true) // defaut = True
+  @@ignore
+}
+
+model BlogPostGallery {
+  rssUrl  String? 
+  mediumUserName String?
+  @@ignore
 }
 
 model Note {
-  id    String @id @default(cuid())
+  id  Int @id @default(autoincrement())
   title String
   body  String
 
@@ -34,5 +191,5 @@ model Note {
   updatedAt DateTime @updatedAt
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId String
+  userId Int
 }
