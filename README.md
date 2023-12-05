@@ -172,3 +172,8 @@ This project uses ESLint for linting. That is configured in `.eslintrc.js`.
 ### Formatting
 
 We use [Prettier](https://prettier.io/) for auto-formatting in this project. It's recommended to install an editor plugin (like the [VSCode Prettier plugin](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)) to get auto-formatting on save. There's also a `npm run format` script you can run to format all files in the project.
+
+profilePic-1: https://github.com/lucy-tran/lucytran-portfolio/assets/54861558/5191d462-d03d-4bc8-bf93-71580430f355
+
+
+
