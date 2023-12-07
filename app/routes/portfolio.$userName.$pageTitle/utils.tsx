@@ -90,18 +90,26 @@ export async function processBlogPostGalleryBlock(
   //   return;
   // }
   if (block.blockType === "BlogPostGallery") {
-    const options = {
-      method: "GET",
-      url: "https://medium2.p.rapidapi.com/user/1985b61817c3/articles",
-      headers: {
-        "X-RapidAPI-Key": "a2254f4486msh2f1b71806791765p16d307jsnf41a7ea0fdfc",
-        "X-RapidAPI-Host": "medium2.p.rapidapi.com",
-      },
-    };
-
     try {
-      const response = await axios.request(options);
-      console.log(response.data);
+      const userId: { id: string } = await axios.request({
+        method: "GET",
+        url: "https://medium2.p.rapidapi.com/user/id_for/lucytran13",
+        headers: {
+          "X-RapidAPI-Key":
+            "a2254f4486msh2f1b71806791765p16d307jsnf41a7ea0fdfc",
+          "X-RapidAPI-Host": "medium2.p.rapidapi.com",
+        },
+      });
+      const userInfo = await axios.request({
+        method: "GET",
+        url: "https://medium2.p.rapidapi.com/user/" + userId.id,
+        headers: {
+          "X-RapidAPI-Key":
+            "a2254f4486msh2f1b71806791765p16d307jsnf41a7ea0fdfc",
+          "X-RapidAPI-Host": "medium2.p.rapidapi.com",
+        },
+      });
+      console.log(userInfo);
     } catch (error) {
       console.error(error);
     }
