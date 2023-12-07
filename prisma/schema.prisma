@@ -58,6 +58,7 @@ model UserSkill {
 model Website {
   type 		String		@id		// can be ‘linkedin’, ‘github’, ‘website’, etc.
   userWebsites UserWebsite[] @relation("UserWebsites")
+  logoUrl String
 }
 
 model UserWebsite {
@@ -77,8 +78,8 @@ model Page {
   user User @relation("UserPages", fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId	Int	
   order		Int				// assigned based on user’s ordering of pages
-  navTitle	String @default("Untitled")	// its “name” on the timeline arrow, may be different than title
-  title		String @default("Untitled")
+  title	String @default("Untitled")	// its “name” on the timeline arrow, may be different than title
+  heroTitle		String @default("Untitled")
   bgImage		String?
   tldr			String?
   blocks	Block[] @relation("PageBlocks")
@@ -86,6 +87,9 @@ model Page {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([userId, order])
+  @@unique([userId, title])
 }
 
 model BlockType { // a predefined set of block types
@@ -102,9 +106,12 @@ model Block {
   type	BlockType @relation("BlockType", fields:[blockType], references: [type])
   blockType String
   properties  String	@default("{}") // a stringified json object
-  content Block[] @relation("NestedBlocks")
+  children Block[] @relation("NestedBlocks")
+  childrenContent String? // a stringified json object
   parent	Block?	@relation("NestedBlocks", fields: [parentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   parentId	String?
+
+  @@unique([pageId, order, parentId])
 }
 
 // If a user bold, underline, italicize, embed a link, etc, to a specific part of the current block.
@@ -152,33 +159,34 @@ model NumberedList {
 model Toggle {
   text  String?	
   align String @default("left")
-  embeddedUrl String
   @@ignore
 }
 
 model Paragraph {
+  text String?
   align String @default("left")
   images		String?		// a json array
   @@ignore
 }
 
 model SkillsTable {	// will be auto-filled based on the User’s skills, but the user can choose to hide/display specific skills in this block
-  techSkills	String  @default("[]")	// a stringified json array of Skill ids	
-  softSkills	String		 @default("[]")	// a stringified json array of Skill ids	
+  techSkills	String  @default("[]")	// a stringified json array of UserSkill ids	
+  softSkills	String		 @default("[]")	// a stringified json array of UserSkill ids	
   @@ignore
 }
 
 model ContactBox {	 // This element includes the user’s phone, social media, websites, and optionally a form to email the user. 
   headline		String?				// sth like ‘Contact me’ or ‘Let’s connect’
   image		String?		// default = the url to the profilePic
+  phone   String?
   websites	  String	@default("[]")	// a stringified json array of UserWebsite ids
   hasEmailForm	Boolean	@default(true) // defaut = True
   @@ignore
 }
 
 model BlogPostGallery {
-  rssUrl  String? 
-  mediumUserName String?
+  mediumUsername String? // simply put in your Medium user name, and the site will automatically pull data and create a gallery
+  numBlogs Int @default(10) // number of blogs to render on the page
   @@ignore
 }
 

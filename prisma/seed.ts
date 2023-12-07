@@ -16,6 +16,22 @@ async function seed() {
 
   let skills: Prisma.SkillCreateInput[] = [
     {
+      skillName: "HTML5",
+      type: "tech skill",
+    },
+    {
+      skillName: "CSS3",
+      type: "tech skill",
+    },
+    {
+      skillName: "Python",
+      type: "tech skill",
+    },
+    {
+      skillName: "Node.js",
+      type: "tech skill",
+    },
+    {
       skillName: "JavaScript",
       type: "tech skill", // tech skill’ or ‘soft skill’},
     },
@@ -54,12 +70,30 @@ async function seed() {
   );
 
   let websiteTypes: Prisma.WebsiteCreateInput[] = [
-    { type: "LinkedIn" },
-    { type: "GitHub" },
-    { type: "Facebook" },
-    { type: "Instagram" },
-    { type: "Youtube" },
-    { type: "Personal website" },
+    {
+      type: "LinkedIn",
+      logoUrl: "https://img.icons8.com/ios/100/linkedin.png",
+    },
+    {
+      type: "GitHub",
+      logoUrl: "https://img.icons8.com/ios/100/github--v1.png",
+    },
+    {
+      type: "Facebook",
+      logoUrl: "https://img.icons8.com/ios/100/facebook--v1.png",
+    },
+    {
+      type: "Instagram",
+      logoUrl: "https://img.icons8.com/windows/96/instagram-new.png",
+    },
+    {
+      type: "Youtube",
+      logoUrl: "https://img.icons8.com/windows/96/youtube-play.png",
+    },
+    {
+      type: "Personal website",
+      logoUrl: "https://img.icons8.com/ios-glyphs/90/domain.png",
+    },
   ];
 
   await Promise.all(
@@ -81,7 +115,7 @@ async function seed() {
     { type: "Paragraph" },
     { type: "SkillsTable" },
     { type: "ContactBox" },
-    { type: "BlogPostsGallery" },
+    { type: "BlogPostGallery" },
   ];
 
   await Promise.all(
@@ -104,7 +138,7 @@ async function seed() {
       firstName: "Lucy",
       lastName: "Tran",
       profilePic:
-        "https://github.com/lucy-tran/lucytran-portfolio/assets/54861558/fd7504b8-26da-4c0d-87ba-7ec634da5fee", // shown on the landing page
+        "https://github.com/lucy-tran/lucytran-portfolio/assets/54861558/6854c943-a7e5-4b08-809e-eb5daed86d5b", // shown on the landing page
       bio: "Hi, I’m Lucy Tran, a developer, a learner, and a multipotentialite!",
       intro:
         "This is not just my portfolio. What you’re about to step through is my “self growth ladder,” where I will tell you a story of my personal growth, my background, how I got to where I am, and next steps.\n\nThrough this journey, I hope you’ll get a more complete sense of who I am as a person, and that I can break your impression of me as a stranger :)\n\nIf you want to skip through the ladder though, there is a TL; DR section on top of each page. But hey, if you’re not in a rush, I bet you’d love the end if you don’t skip!",
@@ -115,6 +149,18 @@ async function seed() {
             level: "advanced",
           },
           {
+            skillName: "HTML5",
+            level: "intermediate",
+          },
+          {
+            skillName: "CSS3",
+            level: "intermediate",
+          },
+          {
+            skillName: "Python",
+            level: "intermediate",
+          },
+          {
             skillName: "Java",
             level: "intermediate",
           },
@@ -123,12 +169,21 @@ async function seed() {
             level: "advanced",
           },
           {
+            skillName: "Node.js",
+            level: "advanced",
+          },
+          {
             skillName: "React Native",
             level: "advanced",
           },
           {
             skillName: "Leadership",
-            level: "intermediate",
+          },
+          {
+            skillName: "Communication",
+          },
+          {
+            skillName: "Teaching",
           },
         ],
       },
@@ -140,6 +195,18 @@ async function seed() {
           },
           {
             userWebsiteType: "GitHub",
+            url: "github.com/lucy-tran",
+          },
+          {
+            userWebsiteType: "Facebook",
+            url: "github.com/lucy-tran",
+          },
+          {
+            userWebsiteType: "Instagram",
+            url: "github.com/lucy-tran",
+          },
+          {
+            userWebsiteType: "Youtube",
             url: "github.com/lucy-tran",
           },
         ],
@@ -176,11 +243,11 @@ async function seed() {
       properties: JSON.stringify({
         text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         images: [
-          "https://placehold.co/800x600",
-          "https://placehold.co/600x400",
-          "https://placehold.co/500x400",
-          "https://placehold.co/400x300",
-          "https://placehold.co/300x200",
+          "https://picsum.photos/800/600",
+          "https://picsum.photos/600/400",
+          "https://picsum.photos/500/400",
+          "https://picsum.photos/400/300",
+          "https://picsum.photos/300/200",
         ],
       }),
     },
@@ -190,11 +257,11 @@ async function seed() {
       properties: JSON.stringify({
         text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         images: [
-          "https://placehold.co/800x600",
-          "https://placehold.co/600x400",
-          "https://placehold.co/500x400",
-          "https://placehold.co/400x300",
-          "https://placehold.co/300x200",
+          "https://picsum.photos/800/600",
+          "https://picsum.photos/600/400",
+          "https://picsum.photos/500/400",
+          "https://picsum.photos/400/300",
+          "https://picsum.photos/300/200",
         ],
       }),
     },
@@ -206,11 +273,11 @@ async function seed() {
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. \
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         images: [
-          "https://placehold.co/800x600",
-          "https://placehold.co/600x400",
-          "https://placehold.co/500x400",
-          "https://placehold.co/400x300",
-          "https://placehold.co/300x200",
+          "https://picsum.photos/800/600",
+          "https://picsum.photos/600/400",
+          "https://picsum.photos/500/400",
+          "https://picsum.photos/400/300",
+          "https://picsum.photos/300/200",
         ],
       }),
     },
@@ -234,12 +301,13 @@ async function seed() {
     data: {
       userId: user.id,
       order: 1,
-      navTitle: "Past",
-      title: "Background & Childhood",
-      bgImage: "",
+      title: "Past",
+      heroTitle: "Background & Childhood",
+      bgImage:
+        "https://github.com/lucy-tran/lucytran-portfolio/assets/54861558/fdc11aed-e730-4984-96a5-a39aa624857e",
       tldr: "",
       blocks: {
-        create: [...sampleSection, ...sampleSection],
+        create: [...sampleSection],
       },
     },
   });
@@ -248,12 +316,13 @@ async function seed() {
     data: {
       userId: user.id,
       order: 2,
-      navTitle: "0",
-      title: "The Start of It All",
-      bgImage: "",
+      title: "0",
+      heroTitle: "The Start of It All",
+      bgImage:
+        "https://github.com/lucy-tran/lucytran-portfolio/assets/54861558/fdc11aed-e730-4984-96a5-a39aa624857e",
       tldr: "",
       blocks: {
-        create: [...sampleSection, ...sampleSection],
+        create: [...sampleSection],
       },
     },
   });
@@ -262,12 +331,13 @@ async function seed() {
     data: {
       userId: user.id,
       order: 3,
-      navTitle: "1",
-      title: "Freshman Year",
-      bgImage: "",
+      title: "1",
+      heroTitle: "Freshman Year",
+      bgImage:
+        "https://github.com/lucy-tran/lucytran-portfolio/assets/54861558/fdc11aed-e730-4984-96a5-a39aa624857e",
       tldr: "",
       blocks: {
-        create: [...sampleSection, ...sampleSection],
+        create: [...sampleSection],
       },
     },
   });
@@ -276,12 +346,13 @@ async function seed() {
     data: {
       userId: user.id,
       order: 4,
-      navTitle: "2",
-      title: "Sophomore Year",
-      bgImage: "",
+      title: "2",
+      heroTitle: "Sophomore Year",
+      bgImage:
+        "https://github.com/lucy-tran/lucytran-portfolio/assets/54861558/fdc11aed-e730-4984-96a5-a39aa624857e",
       tldr: "",
       blocks: {
-        create: [...sampleSection, ...sampleSection],
+        create: [...sampleSection],
       },
     },
   });
@@ -290,12 +361,13 @@ async function seed() {
     data: {
       userId: user.id,
       order: 5,
-      navTitle: "3",
-      title: "Junior Year",
-      bgImage: "",
+      title: "3",
+      heroTitle: "Junior Year",
+      bgImage:
+        "https://github.com/lucy-tran/lucytran-portfolio/assets/54861558/fdc11aed-e730-4984-96a5-a39aa624857e",
       tldr: "",
       blocks: {
-        create: [...sampleSection, ...sampleSection],
+        create: [...sampleSection],
       },
     },
   });
@@ -304,12 +376,13 @@ async function seed() {
     data: {
       userId: user.id,
       order: 6,
-      navTitle: "4",
-      title: "Senior Year",
-      bgImage: "",
+      title: "4",
+      heroTitle: "Senior Year",
+      bgImage:
+        "https://github.com/lucy-tran/lucytran-portfolio/assets/54861558/fdc11aed-e730-4984-96a5-a39aa624857e",
       tldr: "",
       blocks: {
-        create: [...sampleSection, ...sampleSection],
+        create: [...sampleSection],
       },
     },
   });
@@ -318,9 +391,10 @@ async function seed() {
     data: {
       userId: user.id,
       order: 7,
-      navTitle: "Present",
-      title: "After All These Years...",
-      bgImage: "",
+      title: "Present",
+      heroTitle: "After All These Years...",
+      bgImage:
+        "https://github.com/lucy-tran/lucytran-portfolio/assets/54861558/fdc11aed-e730-4984-96a5-a39aa624857e",
       tldr: "TL;DR: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
       blocks: {
         create: [
@@ -330,9 +404,20 @@ async function seed() {
             blockType: "SkillsTable",
             properties: JSON.stringify({
               techSkills: [
-                "HTML5, CSS3, JavaScript, TypeScript, Java, Python, C#, GraphQL, React, React Native, Node.js, Jest, Next.js, Ant Design, Mongoose, ASP.NET, Retrofit",
+                "HTML5",
+                "CSS3",
+                "JavaScript",
+                "TypeScript",
+                "Java",
+                "Python",
+                "C#",
+                "GraphQL",
+                "React",
+                "React Native",
+                " Node.js",
+                "Jest",
               ],
-              softSkills: [""],
+              softSkills: ["Communication", "Leadership", "Teaching"],
             }),
           },
         ],
@@ -343,10 +428,11 @@ async function seed() {
   const page8 = await prisma.page.create({
     data: {
       userId: user.id,
-      order: 1,
-      navTitle: "Future",
-      title: "'It's High Time'",
-      bgImage: "",
+      order: 8,
+      title: "Future",
+      heroTitle: "'It's High Time'",
+      bgImage:
+        "https://github.com/lucy-tran/lucytran-portfolio/assets/54861558/5376ac75-6eb8-4ddf-a3a5-3ee9a96fa603",
       tldr: "",
       blocks: {
         create: [
@@ -354,20 +440,19 @@ async function seed() {
             order: 1,
             blockType: "ContactBox",
             properties: JSON.stringify({
-              techSkills: [
-                "HTML5, CSS3, JavaScript, TypeScript, Java, Python, C#, GraphQL, React, React Native, Node.js, Jest, Next.js, Ant Design, Mongoose, ASP.NET, Retrofit",
-              ],
-              softSkills: ["Communication, Leadership, Teaching"],
+              headline: "Let's connect!", // sth like ‘Contact me’ or ‘Let’s connect’
+              image:
+                "https://github.com/lucy-tran/lucytran-portfolio/assets/54861558/32f2e283-0610-4198-92d4-ee3b1fba8c10",
+              websites: ["LinkedIn", "GitHub"], // a stringified json array of UserWebsite ids
+              phone: "123.456.7891",
+              hasEmailForm: true, // defaut = True
             }),
           },
           {
             order: 3,
-            blockType: "ContactBox",
+            blockType: "BlogPostGallery",
             properties: JSON.stringify({
-              techSkills: [
-                "HTML5, CSS3, JavaScript, TypeScript, Java, Python, C#, GraphQL, React, React Native, Node.js, Jest, Next.js, Ant Design, Mongoose, ASP.NET, Retrofit",
-              ],
-              softSkills: ["Communication, Leadership, Teaching"],
+              rssUrl: "https://medium.com/feed/@Sabesan96",
             }),
           },
         ],
@@ -408,7 +493,7 @@ async function seed() {
       pageId: page8.id,
       order: 2,
       blockType: "Text",
-      content: {
+      children: {
         create: textWithEmbeddedLink,
       },
     },
