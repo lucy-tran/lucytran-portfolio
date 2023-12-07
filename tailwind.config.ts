@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
+import withMT from "@material-tailwind/react/utils/withMT";
 
-export default {
+module.exports = withMT({
   content: ["./app/**/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
@@ -31,4 +32,5 @@ export default {
     },
   },
   plugins: [],
-} satisfies Config;
+  darkMode: "class",
+});
